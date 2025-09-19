@@ -1,11 +1,11 @@
-import type { FC } from "react";
+import type {FC} from "react";
+import {MainPage} from "../pages/main/ui/MainPage";
+import {MainTemplate} from "../pages/main/ui/MainTemplate";
 
-interface AppProps {
-    
-}
- 
-const App: FC<AppProps> = () => {
-    return (  );
-}
- 
+const App: FC = () => (
+  <MainTemplate>
+    <MainPage />
+  </MainTemplate>
+);
+
 export default App;
