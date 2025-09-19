@@ -22,23 +22,20 @@ export const ProductItem: FC<ProductItemProps> = ({product, view}) => {
 
   return (
     <div className="product-item product-item--list">
-      <div>
-        <b>Code:</b> {product.code}
+      <div className="product-item__row">
+        <b>
+          {product.code}{" "}
+          <span className="product-item__title">{product.title}</span>
+        </b>
+        <span className="product-item__manufacturer">
+          | {product.manufacturer}
+        </span>
       </div>
-      <div>
-        <b>Name:</b> {product.title}
-      </div>
-      <div>
-        <b>Manufacturer:</b> {product.manufacturer}
-      </div>
-      <div>
-        <b>Description:</b> {product.description}
-      </div>
-      <div>
-        <b>Price:</b> {product.price}
-      </div>
-      <div>
-        <b>Stock:</b> {product.stock}
+      <div className="product-item__desc">{product.description}</div>
+      <div className="product-item__bottom">
+        <span>{product.price}Р</span>
+        <span> | </span>
+        <span>{product.stock}</span>
       </div>
     </div>
   );

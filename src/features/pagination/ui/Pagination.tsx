@@ -1,30 +1,37 @@
 import {useUnit} from "effector-react";
 import {type FC} from "react";
-import {$limit, $page, $total, pageChanged} from "../../../entities/product";
+import {$page, $search, $total, pageChanged} from "../../../entities/product";
 
 export const Pagination: FC = () => {
-  const {limit, page, total} = useUnit({
+  const {search, page, total} = useUnit({
     page: $page,
     total: $total,
-    limit: $limit,
+    search: $search,
   });
 
-  const totalPages = Math.ceil(total / limit);
+  const totalPages = Math.ceil(total / search.limit);
 
   return (
-    <div className="pagination">
-      <button disabled={page === 1} onClick={() => pageChanged(page - 1)}>
-        Назад
-      </button>
-      <span>
-        {page} / {totalPages}
-      </span>
-      <button
-        disabled={page === totalPages}
-        onClick={() => pageChanged(page + 1)}
-      >
-        Вперед
-      </button>
+    <div className="pagination-row">
+      <div>
+        Страница: {page} из {totalPages}
+      </div>
+      <div className="pagination-buttons">
+        <button
+          className="button"
+          disabled={page <= 1}
+          onClick={() => pageChanged(page - 1)}
+        >
+          Предыдущая
+        </button>
+        <button
+          className="button"
+          disabled={page >= totalPages}
+          onClick={() => pageChanged(page + 1)}
+        >
+          Следующая
+        </button>
+      </div>
     </div>
   );
 };

@@ -5,11 +5,11 @@ const API_LOGIN = import.meta.env.VITE_API_LOGIN;
 const API_PASSWORD = import.meta.env.VITE_API_PASSWORD;
 
 export async function fetchProducts({
-  search = "",
+  searchText = "",
   page = 1,
   limit = 10,
 }: {
-  search?: string;
+  searchText?: string;
   page?: number;
   limit?: number;
 }) {
@@ -17,8 +17,8 @@ export async function fetchProducts({
     Skip: (page - 1) * limit,
     Take: limit,
   };
-  if (search) {
-    params.Filter = search;
+  if (searchText) {
+    params.Filter = searchText;
   }
 
   try {

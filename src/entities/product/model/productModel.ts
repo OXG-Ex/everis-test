@@ -1,21 +1,23 @@
 import {createEffect, createEvent, createStore, sample} from "effector";
 import {fetchProducts, type Product} from "..";
+import type {Search} from "../lib/types";
 
-export const searchChanged = createEvent<string>();
+export const searchChanged = createEvent<Search>();
 export const pageChanged = createEvent<number>();
-export const limitChanged = createEvent<number>();
 
 export const fetchDefaultProducts = createEvent();
 
 export const fetchProductsFx = createEffect(
-  async (params: {search: string; page: number; limit: number}) => {
+  async (params: {searchText: string; page: number; limit: number}) => {
     return await fetchProducts(params);
   }
 );
 
-export const $search = createStore("").on(searchChanged, (_, s) => s);
+export const $search = createStore<Search>({limit: 10, searchText: ""}).on(
+  searchChanged,
+  (_, s) => s
+);
 export const $page = createStore(1).on(pageChanged, (_, p) => p);
-export const $limit = createStore(10).on(limitChanged, (_, l) => l);
 
 export const $products = createStore<Product[]>([]).on(
   fetchProductsFx.doneData,
@@ -35,16 +37,17 @@ $search.on(searchChanged, (_, payload) => payload);
 
 $page.on(pageChanged, (_, payload) => payload);
 
-$limit.on(limitChanged, (_, payload) => payload);
-
 sample({
-  clock: [limitChanged, pageChanged, searchChanged],
-  source: {limit: $limit, page: $page, search: $search},
+  clock: [pageChanged, searchChanged],
+  source: {page: $page, search: $search},
+  fn({page, search}) {
+    return {searchText: search.searchText, page: page, limit: search.limit};
+  },
   target: fetchProductsFx,
 });
 
 sample({
   clock: fetchDefaultProducts,
-  fn: () => ({search: "", page: 0, limit: 10}),
+  fn: () => ({searchText: "", page: 0, limit: 10}),
   target: fetchProductsFx,
 });

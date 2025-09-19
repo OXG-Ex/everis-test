@@ -11,3 +11,8 @@ export interface ProductResponse {
   totalItems: number;
   items: Product[];
 }
+
+export interface Search {
+  searchText: string;
+  limit: number;
+}

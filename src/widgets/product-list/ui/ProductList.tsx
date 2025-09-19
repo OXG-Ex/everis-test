@@ -28,10 +28,13 @@ export function ProductList() {
   if (isMobile) {
     return (
       <div className="product-list-mobile">
+        <div className="product-list-mobile__header">
+          <span>
+            Code / <b>Title</b> / Manufacturer / Description / Price / Stock
+          </span>
+        </div>
         {products.map((product) => (
-          <div key={product.code} className="product-item">
-            <ProductItem product={product} view="list" />
-          </div>
+          <ProductItem product={product} view="list" key={product.code} />
         ))}
       </div>
     );
