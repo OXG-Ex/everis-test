@@ -1,6 +1,8 @@
 import {useState, type FC} from "react";
 import {searchChanged} from "../../../entities/product";
 
+import "../styles/search-bar.scss";
+
 export const SearchBar: FC = () => {
   const [searchValue, setSearchValue] = useState("");
   const [limitValue, setLimitValue] = useState(10);
@@ -14,8 +16,11 @@ export const SearchBar: FC = () => {
     <>
       <div className="search-fields">
         <div className="search-field">
-          <label className="search-label">Поиск</label>
+          <label className="search-label" htmlFor="searchText">
+            Поиск
+          </label>
           <input
+            id="searchText"
             type="text"
             placeholder="Введите строку поиска"
             value={searchValue}
@@ -24,8 +29,11 @@ export const SearchBar: FC = () => {
           />
         </div>
         <div className="search-field" style={{maxWidth: 80}}>
-          <label className="search-label">Кол-во</label>
+          <label className="search-label" htmlFor="limitNumber">
+            Кол-во
+          </label>
           <input
+            id="limitNumber"
             type="number"
             min={1}
             max={100}

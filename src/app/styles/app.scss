@@ -1,0 +1,40 @@
+@import "../../shared/styles/variables";
+
+.app-header,
+.app-footer {
+  background: $gray-bg;
+  width: 100%;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 20px;
+  min-height: 48px;
+}
+
+.app-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  min-height: 40px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .app-header,
+  .app-footer {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 18px;
+  }
+}

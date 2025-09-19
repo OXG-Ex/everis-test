@@ -1,0 +1,19 @@
+@import "../../../shared/styles/variables";
+
+.main-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 32px 0 0 0;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 600px;
+}
+
+@media (max-width: 600px) {
+  .main-page {
+    padding: 8px 0 0 0;
+    min-height: unset;
+  }
+}

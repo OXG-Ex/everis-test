@@ -1,0 +1,11 @@
+@import "./variables";
+
+body {
+  font-family: "Inter", Arial, sans-serif;
+  background: #fff;
+  color: $text;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

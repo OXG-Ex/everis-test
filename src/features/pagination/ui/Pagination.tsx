@@ -2,6 +2,8 @@ import {useUnit} from "effector-react";
 import {type FC} from "react";
 import {$page, $search, $total, pageChanged} from "../../../entities/product";
 
+import "../styles/pagination.scss";
+
 export const Pagination: FC = () => {
   const {search, page, total} = useUnit({
     page: $page,
@@ -13,7 +15,7 @@ export const Pagination: FC = () => {
 
   return (
     <div className="pagination-row">
-      <div>
+      <div className="pagination-text">
         Страница: {page} из {totalPages}
       </div>
       <div className="pagination-buttons">

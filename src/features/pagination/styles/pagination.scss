@@ -1,0 +1,29 @@
+.pagination-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+  .pagination-row {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    bottom: 40px;
+    background-color: #b8b8b8;
+    width: 100%;
+
+    .pagination-text {
+      text-align: center;
+    }
+
+    .pagination-buttons {
+      display: flex;
+      justify-content: space-between;
+      .button {
+        width: 40%;
+      }
+    }
+  }
+}

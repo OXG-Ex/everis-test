@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import {$error, $products, ProductItem} from "../../../entities/product";
 import {fetchDefaultProducts} from "../../../entities/product/model/productModel";
 
+import "../styles/product-list.scss";
+
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   useEffect(() => {
