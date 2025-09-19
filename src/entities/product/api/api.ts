@@ -1,5 +1,4 @@
 import axios from "axios";
-import type {ProductResponse} from "../lib/types";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const API_LOGIN = import.meta.env.VITE_API_LOGIN;
@@ -23,14 +22,14 @@ export async function fetchProducts({
   }
 
   try {
-    const response = await axios.get<ProductResponse>(` ${API_URL}/v1/Stock`, {
+    const response = await axios.get(` ${API_URL}/v1/Stock`, {
       params,
       auth: {
         username: API_LOGIN,
         password: API_PASSWORD,
       },
     });
-    return response.data;
+    return response.data.result;
   } catch {
     throw new Error("Ошибка загрузки данных");
   }

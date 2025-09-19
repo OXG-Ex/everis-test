@@ -1,10 +1,7 @@
 import {useState, type FC} from "react";
+import {searchChanged} from "../../../entities/product";
 
-type SearchBarProps = {
-  onSearch: (query: string) => void;
-};
-
-export const SearchBar: FC<SearchBarProps> = ({onSearch}) => {
+export const SearchBar: FC = () => {
   const [value, setValue] = useState("");
   return (
     <div>
@@ -14,7 +11,7 @@ export const SearchBar: FC<SearchBarProps> = ({onSearch}) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <button onClick={() => onSearch(value)}>Найти</button>
+      <button onClick={() => searchChanged(value)}>Найти</button>
     </div>
   );
 };

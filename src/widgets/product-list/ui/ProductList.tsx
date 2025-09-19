@@ -1,41 +1,59 @@
+import {useUnit} from "effector-react";
 import {useEffect, useState} from "react";
-import {fetchProducts, ProductItem, type Product} from "../../../entities";
+import {$error, $products, ProductItem} from "../../../entities/product";
+import {fetchDefaultProducts} from "../../../entities/product/model/productModel";
 
-export const ProductList = ({
-  search,
-  page,
-  limit,
-}: {
-  search: string;
-  page: number;
-  limit: number;
-}) => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [total, setTotal] = useState(0);
-  const [error, setError] = useState<string | null>(null);
-
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
   useEffect(() => {
-    fetchProducts({search, page, limit})
-      .then((data) => {
-        console.log(data);
-        setProducts(data.items);
-        setTotal(data.totalItems);
-        setError(null);
-      })
-      .catch(() => setError("Ошибка загрузки данных"));
-  }, [search, page, limit]);
+    const handler = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return isMobile;
+}
 
-  console.log(products);
+export function ProductList() {
+  const {error, products} = useUnit({
+    products: $products,
+    error: $error,
+  });
+
+  const isMobile = useIsMobile();
+
+  useEffect(fetchDefaultProducts, []);
 
   if (error) return <div className="error">{error}</div>;
-  return (
-    <div>
-      <div>
-        {products?.map((product) => (
-          <ProductItem product={product} key={product.code} />
+
+  if (isMobile) {
+    return (
+      <div className="product-list-mobile">
+        {products.map((product) => (
+          <div key={product.code} className="product-item">
+            <ProductItem product={product} view="list" />
+          </div>
         ))}
       </div>
-      <span>{`Всего: ${total}`}</span>
-    </div>
+    );
+  }
+
+  return (
+    <table className="product-table">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Manufacturer</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        {products.map((product) => (
+          <ProductItem product={product} view="table" key={product.code} />
+        ))}
+      </tbody>
+    </table>
   );
-};
+}

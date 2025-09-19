@@ -1,19 +1,19 @@
+import {useUnit} from "effector-react";
 import {type FC} from "react";
+import {$limit, $page, $total, pageChanged} from "../../../entities/product";
 
-type PaginationProps = {
-  page: number;
-  totalPages: number;
-  onPageChange: (p: number) => void;
-};
+export const Pagination: FC = () => {
+  const {limit, page, total} = useUnit({
+    page: $page,
+    total: $total,
+    limit: $limit,
+  });
 
-export const Pagination: FC<PaginationProps> = ({
-  page,
-  totalPages,
-  onPageChange,
-}) => {
+  const totalPages = Math.ceil(total / limit);
+
   return (
-    <div>
-      <button disabled={page === 1} onClick={() => onPageChange(page - 1)}>
+    <div className="pagination">
+      <button disabled={page === 1} onClick={() => pageChanged(page - 1)}>
         Назад
       </button>
       <span>
@@ -21,7 +21,7 @@ export const Pagination: FC<PaginationProps> = ({
       </span>
       <button
         disabled={page === totalPages}
-        onClick={() => onPageChange(page + 1)}
+        onClick={() => pageChanged(page + 1)}
       >
         Вперед
       </button>
